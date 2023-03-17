@@ -13,13 +13,15 @@ public class LRUtest {
         String traceFile = "traces/lu.txt";
 
         for (int n : numFreeFrames) {
-            int numPages = n * 256; // Cada frame pode conter 256 páginas
+            int numPages = n; 
             List<Integer> pageFrames = new ArrayList<>(numPages); // Lista de quadros de página
             Map<Integer, Integer> pageTable = new HashMap<>(); // Tabela de páginas
             BufferedReader reader = new BufferedReader(new FileReader(traceFile));
             String line;
             int numFaults = 0; // Contagem de falhas de página
+            
             while ((line = reader.readLine()) != null) {
+                line = line.trim(); // Os espaços em branco são removidos
                 int pageNum = Integer.parseInt(line, 16) / pageSize; // Número da página acessada
                 if (!pageTable.containsKey(pageNum)) { // Se a página não estiver na tabela de páginas
                     numFaults++; // Incrementa a contagem de falhas de página
