@@ -8,13 +8,13 @@ public class LRUtest {
         // Tamanho da página em bytes
         int pageSize = 4096;
         // Número de frames livres
-        int[] numFreeFrames = { 1, 2, 4, 8, 16, 32, 65536 };
+        int[] numFreeFrames = { 2, 4, 8, 16 };
         // Arquivo de log de acesso à memória
-        String traceFile = "traces/lu.txt";
+        String traceFile = args[0];
 
         for (int n : numFreeFrames) {
-            int numPages = n; 
-            List<Integer> pageFrames = new ArrayList<>(numPages); // Lista de quadros de página
+            
+            List<Integer> pageFrames = new ArrayList<>(n); // Lista de quadros de página
             Map<Integer, Integer> pageTable = new HashMap<>(); // Tabela de páginas
             BufferedReader reader = new BufferedReader(new FileReader(traceFile));
             String line;
@@ -22,10 +22,11 @@ public class LRUtest {
             
             while ((line = reader.readLine()) != null) {
                 line = line.replace(" ", "0"); // espaço em branco convertido em 0
-                int pageNum = Integer.parseInt(line, 16) / pageSize; // Número da página acessada
+                int pageNum = Integer.parseInt(line, 16); // Número da página acessada
+                System.out.println("Linha: " + line + " Numero de Pagina: " + pageNum);
                 if (!pageTable.containsKey(pageNum)) { // Se a página não estiver na tabela de páginas
                     numFaults++; // Incrementa a contagem de falhas de página
-                    if (pageFrames.size() == numPages) { // Se a lista de quadros de página estiver cheia
+                    if (pageFrames.size() == n) { // Se a lista de quadros de página estiver cheia
                         int lruPage = pageFrames.get(0); // Remove a página menos recentemente usada
                         pageTable.remove(lruPage); // Remove a página da tabela de páginas
                         pageFrames.remove(0); // Remove o quadro de página da lista
