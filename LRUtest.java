@@ -6,9 +6,9 @@ import java.util.*;
 public class LRUtest {
     public static void main(String[] args) throws IOException {
         // Tamanho da página em bytes
-        int pageSize = 4096;
+        //int pageSize = 4096;
         // Número de frames livres
-        int[] numFreeFrames = { 2, 4, 8, 16 };
+        int[] numFreeFrames = {1, 2, 4, 8, 16, 32, 64};
         // Arquivo de log de acesso à memória
         String traceFile = args[0];
 
@@ -22,8 +22,8 @@ public class LRUtest {
             
             while ((line = reader.readLine()) != null) {
                 line = line.replace(" ", "0"); // espaço em branco convertido em 0
-                int pageNum = Integer.parseInt(line, 16); // Número da página acessada
-                System.out.println("Linha: " + line + " Numero de Pagina: " + pageNum);
+                int pageNum = Integer.parseInt(line, 16) >> 12; // Numero da pagina, utilizar shift 12 ou dividir pelo tamanho da pagina
+                //System.out.println("Linha: " + line + " Numero de Pagina: " + pageNum);
                 if (!pageTable.containsKey(pageNum)) { // Se a página não estiver na tabela de páginas
                     numFaults++; // Incrementa a contagem de falhas de página
                     if (pageFrames.size() == n) { // Se a lista de quadros de página estiver cheia
