@@ -21,7 +21,7 @@ public class LRUtest {
             int numFaults = 0; // Contagem de falhas de página
             
             while ((line = reader.readLine()) != null) {
-                line = line.trim(); // Os espaços em branco são removidos
+                line = line.replace(" ", "0"); // espaço em branco convertido em 0
                 int pageNum = Integer.parseInt(line, 16) / pageSize; // Número da página acessada
                 if (!pageTable.containsKey(pageNum)) { // Se a página não estiver na tabela de páginas
                     numFaults++; // Incrementa a contagem de falhas de página
