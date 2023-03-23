@@ -3,12 +3,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class LRUtest {
+public class LRU {
     public static void main(String[] args) throws IOException {
         // Tamanho da página em bytes
         //int pageSize = 4096;
         // Número de frames livres
-        int[] numFreeFrames = {1, 2, 4, 8, 16, 32, 64};
+        int[] numFreeFrames = {2, 4, 8, 16, 32, 64};
         // Arquivo de log de acesso à memória
         String traceFile = args[0];
 
